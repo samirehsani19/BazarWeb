@@ -1,23 +1,29 @@
+
 trigger:
 - master
 
 pool:
   vmImage: 'ubuntu-latest'
-
-
+  
 variables:
   buildConfiguration: 'Release'
-
 steps:
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'myweb/*.csproj'
+    projects: 'myweb/myweb.csproj'
+
+
 - task: DotNetCoreCLI@2
-  inputs: 
-    command: test
-    projects: 'myWebTest/*.csproj'
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    zipAfterPublish: false
+    workingDirectory: 'myweb/'
     arguments: '--configuration $(buildConfiguration)'
+
+
 
 - task: Docker@2
   inputs:
@@ -25,3 +31,9 @@ steps:
     repository: 'bazarRepo'
     command: 'buildAndPush'
     Dockerfile: 'myweb/Dockerfile'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'backend'
+    publishLocation: 'Container'
