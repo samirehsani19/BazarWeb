@@ -1,0 +1,27 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'myweb/*.csproj'
+- task: DotNetCoreCLI@2
+  inputs: 
+    command: test
+    projects: 'myWebTest/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'bazarConnection'
+    repository: 'bazarRepo'
+    command: 'buildAndPush'
+    Dockerfile: 'myweb/Dockerfile'
