@@ -78,5 +78,6 @@ namespace myweb.Controllers
             cartItems = JsonConvert.DeserializeObject<List<ShoppingCartDto>>(HttpContext.Session.GetString("data"));
             return View(cartItems);
         }
+
     }
 }
