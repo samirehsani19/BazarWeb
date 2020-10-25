@@ -10,6 +10,10 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'myweb/*.csproj'
+- task: DotNetCoreCLI@2
   inputs: 
     command: test
     projects: 'myWebTest/*.csproj'
