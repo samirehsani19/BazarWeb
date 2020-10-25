@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/Top-bar.css" />
+    <link rel="stylesheet" href="~/css/Responsive.css" />
+    <link rel="stylesheet" href="~/css/Footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            <h1>Online Bazar</h1>
+            <img src="~/image/logo.jpg" />
+        </div>
+        <ul>
+            <li>
+                @Html.ActionLink(linkText: "Home", actionName: "Index", controllerName: "Product")
+            </li>
+            <li>
+                @Html.ActionLink(linkText: "Log in", actionName: "Login", controllerName: "User")
+            </li>
+            <li>
+                @Html.ActionLink(linkText: "Contact", actionName: "Contact", controllerName: "Company")
+            </li>
+            <li>
+                @Html.ActionLink(linkText: "About", actionName: "About", controllerName: "Company")
+            </li>
+            <li>
+                
+                @if (Context.Session.GetInt32("counter") == null)
+                {
+                    @Html.ActionLink(linkText: "Cart", actionName: "ShoppingCart", controllerName: "Shopping", null, htmlAttributes: new { id = "cartItem" })
+                }
+                else
+                {
+                    @Html.ActionLink(linkText: "Cart(" + Context.Session.GetInt32("counter") + ")", actionName: "ShoppingCart", controllerName: "Shopping", null, htmlAttributes: new { id = "cartItem" })
+                }
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="main">
+            @RenderBody()
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="copyright">
+            <ul>
+                <li>Online Bazar</li>
+                <li> ©Copyright 2020 Samir Ehsani</li>
+            </ul>
+        </div>
+        <div class="social-media">
+            <div class="media-item">
+                <h2>Follow us</h2>
+                <span>|</span>
+                <ul>
+                    <li><a href="https://www.facebook.com" class="fa fa-facebook"></a></li>
+                    <li><a href="https://www.instagram.com" class="fa fa-instagram"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

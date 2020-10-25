@@ -1,0 +1,49 @@
+﻿@model myweb.Models.User
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+</head>
+<body>
+    <form method="post" asp-controller="User" asp-action="Login">
+        <table cellpadding="10" cellspacing="5" width="80%">
+            <tr>
+                <td style="font-size:22px;">Username</td>
+                <td>
+                    <input asp-for="Username" placeholder="Enter username" required style="width:300px; height:30px;
+                            font-size:16px; border-radius:8px; outline:none;"/>
+                </td>
+                </tr>
+            <tr>
+                <td style="font-size:22px">Password</td>
+                <td>
+                    <input type="password" asp-for="Password" placeholder="Enter password" required style="width:300px; height:30px;
+                            font-size:16px; border-radius:8px; outline:none;" autocomplete="off" id="password"/>
+                    <input type="checkbox" onclick="UserPassword()" id="checkBox"/> Show Password
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 15px">
+                    <input type="submit" value="Login" style="padding:4px; background-color:black; color:yellow; width:95px;
+                            border-radius:6px; cursor:pointer; font-size:18px; margin-left:100%"/>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+    <script>
+        function UserPassword() {
+            var password = document.getElementById("password");
+            var checkBox = document.getElementById("checkBox");
+
+            if (checkBox.checked == true) {
+                password.type="text"
+            } else {
+                password.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

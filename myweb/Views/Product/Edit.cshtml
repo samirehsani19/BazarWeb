@@ -1,0 +1,55 @@
+﻿@model myweb.Models.Product
+@{ ViewBag.Title = "Edit product";}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/ContentCss/Add.css" />
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" asp-controller="Product" asp-action="Edit">
+        <table cellpadding="10" cellspacing="5">
+            <tr>
+                <td>Product Name</td>
+                <td>
+                    <input asp-for="ProductName" placeholder="Enter the product name" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>
+                    <input asp-for="Price" placeholder="Enter the price" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>
+                    <input asp-for="Quantity" placeholder="Enter the quantity" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>
+                    <textarea rows="5" cols="68" name="description" placeholder="Enter the product description"> @Model.Description</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td>
+                    <input type="file" name="photo" />
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Save" class="save-btn" />
+                    <input type="hidden" asp-for="ProductID" />
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+</body>
+</html>

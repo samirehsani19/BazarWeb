@@ -1,0 +1,55 @@
+﻿@model List<myweb.ViewModels.ShoppingCartDto>
+@{
+    ViewBag.Title = "Shopping cart";
+    int totalAmount = 0;
+
+    Random rand = new Random();
+    int receiptNumber = rand.Next(100000, 900000);
+
+    DateTime date = DateTime.Now;
+}
+
+<table style="width:360px; display:flex; background-color:pink; border: 2px solid maroon; padding:10px; border-radius:3px; height:100vh;" cellpadding="10" cellspacing="10">
+    <tr>
+        <td style="font-size:15px; font-weight:bolder;">Receipt NO:</td>
+        <td style="font-size:15px; font-weight:bolder;">@receiptNumber</td>
+    </tr>
+    <tr>
+        <td style="padding-bottom:20px">Date:</td>
+        <td style="padding-bottom:20px">@date</td>
+    </tr>
+
+    <tr>
+        <th style="text-align:left">Name</th>
+        <th style="text-align:left">Quantity</th>
+        <th style="text-align:right">Price</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        totalAmount += item.Total;
+        <tr>
+            <td>
+                @item.ProductName
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td style="text-align:right">
+                @item.Total
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="2" style="text-align:left;">
+            <h3>Total Amount</h3>
+        </td>
+        <td style="text-align:right;">
+            <h3>@totalAmount SEK</h3>
+        </td>
+    </tr>
+    <tr style="display:block; padding-left:10px;">
+        <td style="display:block">Thank you for shopping</td>
+        <td style="display:block">Welcome back</td>
+    </tr>
+</table>
+

@@ -1,0 +1,47 @@
+﻿@model Product[]
+@{
+    ViewBag.Title = "List of Products";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/ContentCss/Index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
+    <title>Index</title>
+</head>
+<body>
+    <div class="content">
+        @foreach (var item in Model)
+        {
+            <div class="main-content">
+                <div class=" item-content">
+                    <h4>@item.ProductName</h4>
+                </div>
+                <div class="thumbnail">
+                    <div class="image">
+                        <img src="~/image/@item.Image" />
+                    </div>
+                    <div class="item-description">
+                        <h5>Available</h5>
+                        <div class="available">@item.Quantity</div>
+                        <h5>Description</h5>
+                        <div class="info">@item.Description</div>
+                    </div>
+                </div>
+                <div class="cart">
+                    <div class="Price">@item.Price SEK</div>
+                    <div class="btn2">
+
+                        <input type="button" name="AddToCart" value="ADD TO CART" itemid="@item.ProductID" onclick="AddToCart(this)" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/Main.js"></script>
+</body>
+</html>
