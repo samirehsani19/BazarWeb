@@ -2,33 +2,40 @@
 trigger:
 - master
 
+pool:
+  vmImage: 'ubuntu-latest'
+  
 variables:
   buildConfiguration: 'Release'
-  tag: $('Build.BuildId')
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: 'Ubuntu-latest'
-    steps:
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: test
-        projects: '**/*.csproj'
-        arguments: '--configuration $(buildConfiguration)'
-    - script: dotnet build --configuration $(buildConfiguration)
-      displayName: 'dotnet build $(buildConfiguration)'
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: bazar
-        dockerfile: myweb/Dockerfile
-        containerRegistry: 'bazarConnection'
-        tags: |
-          $(tag)
+steps:
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'myweb/myweb.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: 'myWebTest/MyWebTest.csproj'
+    testRunTitle: 'Running Test'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    zipAfterPublish: false
+    workingDirectory: 'myweb'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'bazar'
+    repository: 'bazarConnection'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'backend'
+    publishLocation: 'Container'
