@@ -9,7 +9,7 @@
     DateTime date = DateTime.Now;
 }
 
-<table style="width:360px; display:flex; background-color:pink; border: 2px solid maroon; padding:10px; border-radius:3px; height:100vh;" cellpadding="10" cellspacing="10">
+<table style="width:360px; margin:auto; display:flex; background-color:pink; border: 2px solid maroon; padding:10px; border-radius:3px; height:100vh;" cellpadding="10" cellspacing="10">
     <tr>
         <td style="font-size:15px; font-weight:bolder;">Receipt NO:</td>
         <td style="font-size:15px; font-weight:bolder;">@receiptNumber</td>
@@ -53,3 +53,6 @@
     </tr>
 </table>
 
+@{ 
+    Context.Session.Clear();
+}
