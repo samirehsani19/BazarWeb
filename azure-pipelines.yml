@@ -2,9 +2,6 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
-  
 variables:
   buildConfiguration: 'Release'
   tag: $('Build.BuildId')
@@ -15,10 +12,10 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: $(vmImage)
+      vmImage: 'Ubuntu-latest'
     steps:
     - task: DotNetCoreCLI@2
-      inputs: 
+      inputs:
         command: test
         projects: '/myWebTest/*.csproj'
         arguments: '--configuration $(buildConfiguration)'
@@ -33,5 +30,5 @@ stages:
         containerRegistry: 'bazarConnection'
         tags: |
           $(tag)
-  
+
 
